@@ -1,127 +1,138 @@
 from App.ext import db
 
-from django.db import models
+
 
 # Create your models here.
-class Main(models.Model):
-    img=models.CharField(max_length=150)
-    name=models.CharField(max_length=32)
-    trackid=models.CharField(max_length=20)
-    class Meta:
-        abstract=True
+class Main(db.Model): #  必须继承自db.Model
 
-class MainWheel(Main):
-    class Meta:
-        db_table='axf_wheel'
+    __tablename__ = 'movies'
 
-class MainNav(Main):
-    class Meta:
-        db_table='axf_nav'
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    name = db.Column(db.String(64),unique=True)
+    trackid =  db.Column(db.String(64),unique=True)
 
 
-class MainMustBuy(Main):
-    class Meta:
-        db_table='axf_mustbuy'
+class MainWheel(db.Main):
+    __tablename__='axf_wheel'
 
-class MainShop(Main):
-    class Meta:
-        db_table='axf_shop'
+class MainNav(db.Main):
+    __tablename__ = 'axf_nav'
 
-class MainShow(Main):
-    categoryid = models.CharField(max_length=10)
-    brandname = models.CharField(max_length=20)
 
-    img1 = models.CharField(max_length=100)
-    childcid1 = models.CharField(max_length=10)
-    productid1 = models.CharField(max_length=10)
-    longname1 = models.CharField(max_length=50)
-    price1 = models.CharField(max_length=10)
-    marketprice1 = models.CharField(max_length=10)
+class MainMustBuy(db.Main):
+    __tablename__ = 'axf_mustbuy'
 
-    img2 = models.CharField(max_length=100)
-    childcid2 = models.CharField(max_length=10)
-    productid2 = models.CharField(max_length=10)
-    longname2 = models.CharField(max_length=50)
-    price2 = models.CharField(max_length=10)
-    marketprice2 = models.CharField(max_length=10)
+class MainShop(db.Main):
+    __tablename__ = 'axf_shop'
 
-    img3 = models.CharField(max_length=100)
-    childcid3 = models.CharField(max_length=10)
-    productid3 = models.CharField(max_length=10)
-    longname3 = models.CharField(max_length=50)
-    price3 = models.CharField(max_length=10)
-    marketprice3 = models.CharField(max_length=10)
+class MainShow(db.Main):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    categoryid = db.Column(db.String(64),unique=True)
+    brandname = db.Column(db.String(64),unique=True)
 
-    class Meta:
-        db_table = 'axf_mainshow'
+    img1 = db.Column(db.String(64),unique=True)
+    childcid1 = db.Column(db.String(64),unique=True)
+    productid1 =db.Column(db.String(64),unique=True)
+    longname1 =db.Column(db.String(64),unique=True)
+    price1 = db.Column(db.String(64),unique=True)
+    marketprice1 = db.Column(db.String(64),unique=True)
 
-class MainFoodTypes(models.Model):
-    typeid = models.CharField(max_length=10)
-    typename = models.CharField(max_length=32)
-    childtypenames  = models.CharField(max_length=200)
-    typesort = models.CharField(max_length=20)
+    img2 = db.Column(db.String(64),unique=True)
+    childcid2 = db.Column(db.String(64),unique=True)
+    productid2 = db.Column(db.String(64),unique=True)
+    longname2 = db.Column(db.String(64),unique=True)
+    price2 = db.Column(db.String(64),unique=True)
+    marketprice2 = db.Column(db.String(64),unique=True)
 
-    class Meta:
-        db_table = 'axf_foodtypes'
-class MainGoods(models.Model):
+    img3 = db.Column(db.String(64),unique=True)
+    childcid3 = db.Column(db.String(64),unique=True)
+    productid3 = db.Column(db.String(64),unique=True)
+    longname3 = db.Column(db.String(64),unique=True)
+    price3 = db.Column(db.String(64),unique=True)
+    marketprice3 = db.Column(db.String(64),unique=True)
+
+    __tablename__ =  'axf_mainshow'
+
+class MainFoodTypes(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    typeid = db.Column(db.String(64),unique=True)
+    typename = db.Column(db.String(64),unique=True)
+    childtypenames  = db.Column(db.String(200),unique=True)
+    typesort = db.Column(db.String(64),unique=True)
+
+    __tablename__= 'axf_foodtypes'
+class MainGoods(db.Model):
     # 商品id
-    productid = models.CharField(max_length=10)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    productid = db.Column(db.String(64),unique=True)
     # 商品图片
-    productimg = models.CharField(max_length=150)
+    productimg = db.Column(db.String(64),unique=True)
     # 商品名称
-    productname = models.CharField(max_length=50)
+    productname = db.Column(db.String(64),unique=True)
     # 商品长名称
-    productlongname = models.CharField(max_length=100)
+    productlongname = db.Column(db.String(200),unique=True)
     # 是否精选
-    isxf = models.NullBooleanField(default=False)
+    isxf = db.Column(db.Boolean,default=False )
     # 是否买一赠一
-    pmdesc = models.CharField(max_length=10)
+    pmdesc = db.Column(db.String(200),unique=True)
     # 规格
-    specifics = models.CharField(max_length=20)
+    specifics = db.Column(db.String(200),unique=True)
     # 价格
-    price = models.CharField(max_length=10)
+    price = db.Column(db.String(200),unique=True)
     # 超市价格
-    marketprice = models.CharField(max_length=10)
+    marketprice = db.Column(db.String(200),unique=True)
     # 组id
-    categoryid = models.CharField(max_length=10)
+    categoryid = db.Column(db.String(200),unique=True)
     # 子类组id
-    childcid = models.CharField(max_length=10)
+    childcid = db.Column(db.String(200),unique=True)
     # 子类组名称
-    childcidname = models.CharField(max_length=10)
+    childcidname = db.Column(db.String(200),unique=True)
     # 详情页id
-    dealerid = models.CharField(max_length=10)
+    dealerid = db.Column(db.String(200),unique=True)
     # 库存
-    storenums = models.IntegerField()
+    storenums = db.Column(db.Integer)
     # 销量
-    productnum = models.IntegerField()
+    productnum = db.Column(db.Integer)
 
-    class Meta:
-        db_table = "axf_goods"
+    __name__="axf_goods"
 
-class UserModel(models.Model):
-    username = models.CharField(max_length=32)
-    password = models.CharField(max_length=256)
+class UserModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(200),unique=True)
+    password = db.Column(db.String(250),unique=True)
+    smallname = db.Column(db.String(200),unique=True)
+    phone = db.Column(db.String(200),unique=True)
+    address =db.Column(db.String(200),unique=True)
+    icon = db.Column(db.LargeBinary(length=2048))
+    __name__ = "App_usermodel"
 
+class CartModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    smallname = models.CharField(max_length=32)
-    phone = models.CharField(max_length=11)
-    address = models.CharField(max_length=256)
-    icon = models.ImageField(upload_to='icons')
-
-class CartModel(models.Model):
-    goodsid=models.ForeignKey(MainGoods)
-    userid=models.ForeignKey(UserModel)
-    c_num=models.IntegerField(default=1)
-    is_choosed=models.BooleanField(default=True)
-
-class OrderModel(models.Model):
-    userid=models.ForeignKey(UserModel)
-    o_num=models.CharField(max_length=150)
-    is_pay=models.IntegerField(default=0)
+    c_num=db.Column(db.Integer)
+    is_choosed=db.Column(db.Boolean,default=True )
+    ordermodel=db.relationship('OrderModel',secondary='registrations',
+                               backref=db.backref('orders'),lazy='dynamic')
+    __name__ = "App_cartmodel"
 
 
-class OrderGoodsModel(models.Model):
-    orderid=models.ForeignKey(OrderModel)
-    goodsid = models.ForeignKey(MainGoods)
+class OrderModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    goods_num = models.IntegerField(default=1)
+    o_num=db.Column(db.String(250),unique=True)
+    is_pay=db.Column(db.Integer)
+    __name__ = "App_ordermodel"
+
+registrations = db.Table('App_ordergoodsmodel',
+    db.Column('orderid', db.Integer, db.ForeignKey('App_ordermodel.id')),
+    db.Column('goodsid', db.Integer, db.ForeignKey('App_cartmodel.id')),
+    goods_num = db.Column(db.Integer,default=1)
+)
+
+
+
+# class OrderGoodsModel(models.Model):
+#     orderid=models.ForeignKey(OrderModel)
+#     goodsid = models.ForeignKey(MainGoods)
+#
+#     goods_num = db.Column(db.Integer,default=1)
